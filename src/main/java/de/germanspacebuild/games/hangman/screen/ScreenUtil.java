@@ -52,9 +52,15 @@ public class ScreenUtil {
 
     public static void scanReplacementTags(Screen screen) {
         final String text = screen.getText();
-        List<String> words = Arrays.asList(text.split("[ ]"));
+        List<String> words = Arrays.asList(text.split("(\\r?\\n)"));
         for (String word : words) {
             if (word.startsWith("%")) {
+                if (word.contains("File")) {
+                    String[] file = word.split("([_])");
+                    screen.addReplaceTag(word);
+                    screen.editRaplaceTag(word, ScreenUtil.readTextFile(file[file.length - 1]));
+                    continue;
+                }
                 screen.addReplaceTag(word);
             }
         }

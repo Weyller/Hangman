@@ -21,6 +21,9 @@ public class Screen {
     }
 
     public void print() {
+        for (String key : replaceTags.keySet()) {
+            text = text.replaceAll(key, replaceTags.get(key));
+        }
         System.out.println(text);
         if (awaitsInput) {
             this.input = ScreenUtil.readInput();
@@ -42,7 +45,7 @@ public class Screen {
     }
 
     public void addReplaceTag(String tag) {
-        replaceTags.put(tag, "");
+        replaceTags.put(tag, "@WARNING_NO_REPLACEMENT@");
     }
 
     public Map<String, String> getReplaceTags() {

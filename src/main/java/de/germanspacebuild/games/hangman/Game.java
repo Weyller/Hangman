@@ -1,6 +1,7 @@
 package de.germanspacebuild.games.hangman;
 
 import de.germanspacebuild.games.hangman.screen.MenuScreen;
+import de.germanspacebuild.games.hangman.screen.Screen;
 import de.germanspacebuild.games.hangman.screen.ScreenUtil;
 
 import java.util.ArrayList;
@@ -24,16 +25,19 @@ public class Game {
     }
 
     public void init() {
-        MenuScreen welcomeScreen = new MenuScreen(ScreenUtil.readTextFile("Title"));
-        welcomeScreen.addText(ScreenUtil.readTextFile("Menu_Main"));
+        MenuScreen welcomeScreen = new MenuScreen(ScreenUtil.readTextFile("Menu_Main"));
+        ScreenUtil.scanReplacementTags(welcomeScreen);
         welcomeScreen.addMenuAction(1, () -> loop());
         welcomeScreen.addMenuAction(2, () -> System.exit(0));
         welcomeScreen.print();
     }
 
     private void loop() {
+        Screen gameScreen = new Screen(ScreenUtil.readTextFile("Game"));
+        ScreenUtil.scanReplacementTags(gameScreen);
         while (running) {
             ScreenUtil.clearScreen();
+            gameScreen.print();
         }
     }
 
