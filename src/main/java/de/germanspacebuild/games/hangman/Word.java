@@ -24,7 +24,7 @@ public class Word {
     private void createHiddenWord() {
         hiddenWord = "";
         for (int i = 0; i < word.length(); i++) {
-            hiddenWord = hiddenWord + "_";
+            hiddenWord = hiddenWord + "_ ";
         }
     }
 

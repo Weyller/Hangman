@@ -1,9 +1,12 @@
 %File_Title
 
+Lives:
 %lives
 
+Wrong letters:
 %used
 
+Your word:
 %word
 
 Take a guess:
