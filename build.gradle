@@ -12,10 +12,12 @@ jar {
     manifest {
         attributes 'Main-Class': 'de.germanspacebuild.games.hangman.Hangman'
     }
+    from "LICENSE.md"
 }
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
