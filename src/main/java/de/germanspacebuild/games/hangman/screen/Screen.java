@@ -45,7 +45,7 @@ public class Screen {
     }
 
     public void addReplaceTag(String tag) {
-        replaceTags.put(tag, "@WARNING_NO_REPLACEMENT@");
+        replaceTags.put(tag, "@WARNING_NO_REPLACEMENT@ " + tag);
     }
 
     public Map<String, String> getReplaceTags() {

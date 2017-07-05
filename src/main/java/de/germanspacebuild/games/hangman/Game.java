@@ -35,6 +35,7 @@ public class Game {
     private void loop() {
         Screen gameScreen = new Screen(ScreenUtil.readTextFile("Game"));
         ScreenUtil.scanReplacementTags(gameScreen);
+        gameScreen.setAwaitsInput(true);
         while (running) {
             ScreenUtil.clearScreen();
             gameScreen.print();
