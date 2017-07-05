@@ -1,0 +1,9 @@
+%title
+
+%lives
+
+%used
+
+%word
+
+Take a guess:
