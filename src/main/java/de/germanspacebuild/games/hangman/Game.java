@@ -16,6 +16,7 @@ import java.util.List;
 public class Game {
 
     private int lives = 15;
+    private final int maxLives = lives;
     private Word word;
     private List<Character> usedChars = new ArrayList<>();
     private boolean running = true;
@@ -58,9 +59,9 @@ public class Game {
         if (word.isValidChar(guessChar)) {
             word.uncoverLetter(guessChar);
         } else {
-            lives--;
             if (!usedChars.contains(Character.toUpperCase(guessChar))) {
                 usedChars.add(Character.toUpperCase(guessChar));
+                lives--;
             }
         }
     }
@@ -78,6 +79,8 @@ public class Game {
             running = false;
             ScreenUtil.clearScreen();
             screen = new Screen(ScreenUtil.readTextFile("Won"));
+            ScreenUtil.scanReplacementTags(screen);
+            screen.editRaplaceTag("%word", word.getRawWord());
             screen.print();
         }
     }
@@ -95,7 +98,7 @@ public class Game {
         for (int i = 0; i < lives; i++) {
             sb.append("O");
         }
-        for (int i = 0; i < 10 - lives; i++) {
+        for (int i = 0; i < maxLives - lives; i++) {
             if (lives >= 0) {
                 sb.append("-");
             }
