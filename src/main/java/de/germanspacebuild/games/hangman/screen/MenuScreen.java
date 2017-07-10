@@ -24,6 +24,12 @@ public class MenuScreen extends Screen {
         performAction(Integer.valueOf(input));
     }
 
+    @Override
+    public void close() {
+        super.close();
+        actions.clear();
+    }
+
     public void performAction(int number) {
         actions.get(number).action();
     }

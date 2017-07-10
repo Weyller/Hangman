@@ -67,7 +67,16 @@ public class ScreenUtil {
     }
 
     public static String readInput() {
-        return scanner.nextLine();
+        String s = scanner.nextLine();
+        if (s == null || s.isEmpty()) {
+            s = "";
+        }
+        resetInput();
+        return s;
+    }
+
+    private static void resetInput() {
+        scanner = new Scanner(System.in);
     }
 
     public static void clearScreen() {

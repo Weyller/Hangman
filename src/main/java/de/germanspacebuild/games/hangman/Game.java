@@ -19,7 +19,7 @@ public class Game {
     private Word word;
     private List<Character> usedChars = new ArrayList<>();
     private boolean running = true;
-    private String livesText = "[OOOOOOOOOO]";
+    private String livesText = "";
     private Screen gameScreen;
 
     public Game(Word word) {
@@ -32,10 +32,8 @@ public class Game {
         ScreenUtil.scanReplacementTags(welcomeScreen);
         welcomeScreen.addMenuAction(1, this::loop);
         welcomeScreen.addMenuAction(2, () -> System.exit(0));
-        usedChars.add('d');
-        usedChars.add('g');
-        usedChars.add('h');
         welcomeScreen.print();
+        welcomeScreen.close();
     }
 
     private void loop() {
@@ -46,10 +44,27 @@ public class Game {
             ScreenUtil.clearScreen();
             updateDisplay();
             gameScreen.print();
+            handleInput();
         }
     }
 
-    public void updateDisplay() {
+    private void handleInput() {
+        String input = gameScreen.getInput();
+        if (input.isEmpty() || input == "") {
+            return;
+        }
+        char guessChar = input.charAt(0);
+        if (word.isValidChar(guessChar)) {
+            word.uncoverLetter(guessChar);
+        } else {
+            lives--;
+            if (!usedChars.contains(guessChar)) {
+                usedChars.add(Character.toUpperCase(guessChar));
+            }
+        }
+    }
+
+    private void updateDisplay() {
         updateLives();
         gameScreen.editRaplaceTag("%lives", livesText);
         gameScreen.editRaplaceTag("%word", word.getHiddenWord());
@@ -63,11 +78,12 @@ public class Game {
             sb.append("O");
         }
         for (int i = 0; i < 10 - lives; i++) {
-            sb.append("-");
+            if (lives >= 0) {
+                sb.append("-");
+            }
         }
         sb.append("]");
         livesText = sb.toString();
-        gameScreen.editRaplaceTag("%lives", livesText);
     }
 
 }

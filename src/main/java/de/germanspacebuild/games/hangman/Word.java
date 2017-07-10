@@ -14,11 +14,13 @@ public class Word {
     private String word;
     private String hiddenWord;
     private List<Character> validChars = new ArrayList<>();
+    private List<Integer> letterIndicies = new ArrayList<>();
 
     public Word(String word) {
         this.word = word.toUpperCase();
         createHiddenWord();
         createValidCharList();
+        createLetterList();
     }
 
     private void createHiddenWord() {
@@ -36,16 +38,28 @@ public class Word {
         }
     }
 
-    public void uncoverLetter(char character) {
-        int index = word.indexOf(character);
-        StringBuilder sb = new StringBuilder(hiddenWord);
-        while (index != -1) {
-            sb.setCharAt(index, Character.toUpperCase(character));
+    private void createLetterList() {
+        int index = hiddenWord.indexOf("_");
+        while (index >= 0) {
+            letterIndicies.add(index);
+            index = hiddenWord.indexOf("_", index + 1);
         }
     }
 
+    public void uncoverLetter(char character) {
+        char letter = Character.toUpperCase(character);
+        StringBuilder sb = new StringBuilder(hiddenWord);
+        int index = word.indexOf(letter);
+        while (index != -1) {
+            sb.setCharAt(letterIndicies.get(index), letter);
+            word = word.replaceFirst(Character.toString(letter), "#");
+            index = word.indexOf(letter);
+        }
+        hiddenWord = sb.toString();
+    }
+
     public boolean isValidChar(char character) {
-        return validChars.contains(Character.valueOf(character));
+        return validChars.contains(Character.toUpperCase(character));
     }
 
     public String getHiddenWord() {

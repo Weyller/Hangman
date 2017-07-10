@@ -12,7 +12,7 @@ import java.util.Map;
 public class Screen {
 
     protected String input = "";
-    private String text;
+    private final String text;
     private Map<String, String> replaceTags = new HashMap<>();
     private boolean awaitsInput = false;
 
@@ -21,23 +21,23 @@ public class Screen {
     }
 
     public void print() {
+        String screen = text;
         for (String key : replaceTags.keySet()) {
-            text = text.replaceAll(key, replaceTags.get(key));
+            screen = screen.replaceAll(key, replaceTags.get(key));
         }
-        System.out.println(text);
+        System.out.println(screen);
         if (awaitsInput) {
             this.input = ScreenUtil.readInput();
         }
     }
 
-    public String getText() {
-        return text;
+    public void close() {
+        replaceTags.clear();
+        input = "";
     }
 
-    public void addText(String text) {
-        StringBuilder sb = new StringBuilder(this.text);
-        sb.append(text);
-        this.text = sb.toString();
+    public String getText() {
+        return text;
     }
 
     public void editRaplaceTag(String tag, String replacement) {
@@ -50,6 +50,10 @@ public class Screen {
 
     public Map<String, String> getReplaceTags() {
         return replaceTags;
+    }
+
+    public String getInput() {
+        return input;
     }
 
     public void setAwaitsInput(boolean awaitsInput) {
