@@ -11,13 +11,13 @@ import java.util.List;
  */
 public class Word {
 
-    private String word;
+    private String rawWord;
     private String hiddenWord;
     private List<Character> validChars = new ArrayList<>();
     private List<Integer> letterIndicies = new ArrayList<>();
 
-    public Word(String word) {
-        this.word = word.toUpperCase();
+    public Word(String rawWord) {
+        this.rawWord = rawWord.toUpperCase();
         createHiddenWord();
         createValidCharList();
         createLetterList();
@@ -25,15 +25,15 @@ public class Word {
 
     private void createHiddenWord() {
         hiddenWord = "";
-        for (int i = 0; i < word.length(); i++) {
+        for (int i = 0; i < rawWord.length(); i++) {
             hiddenWord = hiddenWord + "_ ";
         }
     }
 
     private void createValidCharList() {
-        for (int i = 0; i < word.length(); i++) {
-            if (!validChars.contains(word.charAt(i))) {
-                validChars.add(word.charAt(i));
+        for (int i = 0; i < rawWord.length(); i++) {
+            if (!validChars.contains(rawWord.charAt(i))) {
+                validChars.add(rawWord.charAt(i));
             }
         }
     }
@@ -49,6 +49,7 @@ public class Word {
     public void uncoverLetter(char character) {
         char letter = Character.toUpperCase(character);
         StringBuilder sb = new StringBuilder(hiddenWord);
+        String word = rawWord;
         int index = word.indexOf(letter);
         while (index != -1) {
             sb.setCharAt(letterIndicies.get(index), letter);
@@ -64,6 +65,10 @@ public class Word {
 
     public String getHiddenWord() {
         return hiddenWord;
+    }
+
+    public String getRawWord() {
+        return rawWord;
     }
 
     public boolean isUncovered() {

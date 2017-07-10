@@ -59,7 +59,7 @@ public class Game {
             word.uncoverLetter(guessChar);
         } else {
             lives--;
-            if (!usedChars.contains(guessChar)) {
+            if (!usedChars.contains(Character.toUpperCase(guessChar))) {
                 usedChars.add(Character.toUpperCase(guessChar));
             }
         }
@@ -71,6 +71,8 @@ public class Game {
             running = false;
             ScreenUtil.clearScreen();
             screen = new Screen(ScreenUtil.readTextFile("Lost"));
+            ScreenUtil.scanReplacementTags(screen);
+            screen.editRaplaceTag("%word", word.getRawWord());
             screen.print();
         } else if (word.isUncovered()) {
             running = false;

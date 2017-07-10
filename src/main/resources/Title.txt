@@ -8,4 +8,4 @@
                                /\\____/
                                \\_/__/
 
-                        Can you guess the word?
+                        Can you guess the rawWord?

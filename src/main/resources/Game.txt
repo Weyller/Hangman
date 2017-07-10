@@ -6,7 +6,7 @@ Lives:
 Wrong letters:
 %used
 
-Your word:
+Your Word:
 %word
 
 Take a guess:
