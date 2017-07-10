@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Game {
 
-    private int lives = 10;
+    private int lives = 15;
     private Word word;
     private List<Character> usedChars = new ArrayList<>();
     private boolean running = true;
