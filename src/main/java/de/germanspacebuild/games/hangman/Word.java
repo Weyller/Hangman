@@ -66,4 +66,8 @@ public class Word {
         return hiddenWord;
     }
 
+    public boolean isUncovered() {
+        return !hiddenWord.contains("_");
+    }
+
 }

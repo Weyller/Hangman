@@ -45,6 +45,7 @@ public class Game {
             updateDisplay();
             gameScreen.print();
             handleInput();
+            checkRules();
         }
     }
 
@@ -61,6 +62,21 @@ public class Game {
             if (!usedChars.contains(guessChar)) {
                 usedChars.add(Character.toUpperCase(guessChar));
             }
+        }
+    }
+
+    private void checkRules() {
+        Screen screen;
+        if (lives == 0) {
+            running = false;
+            ScreenUtil.clearScreen();
+            screen = new Screen(ScreenUtil.readTextFile("Lost"));
+            screen.print();
+        } else if (word.isUncovered()) {
+            running = false;
+            ScreenUtil.clearScreen();
+            screen = new Screen(ScreenUtil.readTextFile("Won"));
+            screen.print();
         }
     }
 
